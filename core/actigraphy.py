@@ -14,6 +14,12 @@ import pandas as pd
 from typing import Optional
 
 try:
+    # Monkey-patch removed NumPy types required by pyActigraphy
+    if not hasattr(np, 'float'): np.float = float
+    if not hasattr(np, 'int'): np.int = int
+    if not hasattr(np, 'bool'): np.bool = bool
+    if not hasattr(np, 'object'): np.object = object
+    if not hasattr(np, 'typeDict'): np.typeDict = np.sctypeDict
     import pyActigraphy
     _PYACTI_AVAILABLE = True
 except ImportError:
