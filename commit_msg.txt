@@ -1,0 +1,21 @@
+Initial commit: Add IMU Activity Monitor Streamlit App
+
+This initial commit introduces the IMU Activity Monitor, a robust Streamlit application designed for real-time and offline analysis of 6-axis IMU data (accelerometer and gyroscope).
+
+Key Features:
+- **Live Stream Processing**: Integrates a background-thread async WebSocket client allowing real-time ingestion from hardware. The UI provides a live display refreshed every 200 ms.
+- **Offline CSV Analysis**: Supports uploading pre-recorded CSV datasets to run through the entire processing pipeline.
+- **Advanced Sensor Fusion**: Utilizes Madgwick AHRS (via `imufusion`) for accurate orientation estimation, with a reliable fallback to running-mean gravity subtraction.
+- **Activity Classification**: Implements a rule-based sliding-window classifier to categorize movements into Sedentary, Walking, Running, and Cycling. Uses metrics like Vector Magnitude (VM) mean, standard deviation, and dominant FFT frequency.
+- **Step Detection**: Features a Butterworth low-pass filter (5 Hz) combined with `scipy.signal.find_peaks` for accurate step counting.
+- **Circadian Rhythm & Sleep Analysis**: Leverages `pyActigraphy` to compute vital metrics including IS, IV, RA, L5/M10, cosinor fit, and Cole-Kripke sleep scoring for long-duration recordings.
+
+Project Structure:
+- `app.py`: Main Streamlit application interface (3 tabs + sidebar).
+- `core/imu_processor.py`: Core logic for Madgwick fusion, step detection, and activity classification.
+- `core/actigraphy.py`: Wrapper for pyActigraphy metrics (IS/IV/RA/L5/M10/Cosinor/sleep).
+- `core/websocket_client.py`: Async WebSocket client with queue management.
+- `generate_sample.py`: Utility script to generate synthetic IMU data for testing.
+- `sample_data/`: Contains a 5-minute synthetic demo recording.
+
+This foundation establishes a scalable pipeline for extending IMU-based vital monitoring and activity tracking features in future updates.

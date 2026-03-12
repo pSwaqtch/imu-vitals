@@ -1,0 +1,11 @@
+streamlit>=1.35
+numpy
+pandas
+scipy
+plotly
+imufusion
+websockets
+# pyActigraphy has a broken transitive dep (scikit-learn==1.0.1) on Python>=3.12
+# Install with: pip install pyActigraphy --no-deps
+# The app falls back to manual metric implementations when unavailable.
+pyActigraphy
